@@ -1,11 +1,25 @@
 <?php
-namespace frame;
-
+/**
+ * Copyright 2011 David Asabina
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * namespace frame;
+ **/
 require_once(FRAME_PATH.'ables/Inloggable.php');
 
 abstract class User implements Inloggable {
   protected $username;
-  protected $password;
+  protected $passphrase;
 
   public function setUser($string){
     $this->username = $string;
@@ -30,6 +44,11 @@ abstract class User implements Inloggable {
   }
 
   public function validate(){
+    if(empty($this->username) || empty($this->passphrase)){
+      throw new UserException('empty password/username');
+      return false;
+    }
+
     try{
       $this->onValidate();
     }catch(\Exception $e){
@@ -38,6 +57,11 @@ abstract class User implements Inloggable {
   }
 
   public function terminate(){
+    if(empty($this->username) || empty($this->passphrase)){
+      throw new UserException('empty password/username');
+      return false;
+    }
+
     try{
       $this->onTerminate();
     }catch(\Exception $e){
@@ -46,6 +70,11 @@ abstract class User implements Inloggable {
   }
 
   public function subscribe(){
+    if(empty($this->username) || empty($this->passphrase)){
+      throw new UserException('empty password/username');
+      return false;
+    }
+
     try{
       $this->onSubscribe();
     }catch(\Exception $e){
@@ -58,9 +87,9 @@ abstract class User implements Inloggable {
   abstract protected function onSubsribe();
 }
 
-interface UserCallback {
-  protected function onChange();
-  protected function onFail($exception);
+abstract class UserCallback {
+  abstract protected function onChange();
+  abstract protected function onFail($exception);
 }
 
 class UserException extends \Exception {}
