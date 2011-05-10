@@ -15,6 +15,8 @@
  * limitations under the License.
  * namespace frame;
  **/
+namespace frame;
+
 require_once(FRAME_PATH.'ables/Inloggable.php');
 
 abstract class User implements Inloggable {
@@ -33,7 +35,7 @@ abstract class User implements Inloggable {
 
   public function setUserCredentials($user, $pass){
     $this->username = $user;
-    $this->passphrase = $string;
+    $this->passphrase = $pass;
     $this->callOnChange();
   }
 
@@ -82,9 +84,18 @@ abstract class User implements Inloggable {
     }
   }
 
+  public function modify($data){
+    try{
+      $this->onModify($data);
+    }catch(\Exception $e){
+      $this->onFail($e);
+    }
+  }
+
   abstract protected function onValidate();
   abstract protected function onTerminate();
-  abstract protected function onSubsribe();
+  abstract protected function onSubscribe();
+  abstract protected function onModify($data);
 }
 
 abstract class UserCallback {

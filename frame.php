@@ -14,23 +14,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
-namespace frame;
 
-require_once(FRAME_PATH.'Connection.php');
+define('ables', 'ables/');
 
-abstract class Database extends Connection {
-  public function __construct(){
-    echo('\ndatabase');
-  }
+define('view', 'view/');
 
-  public function query($string){
-    if(method_exists($this, 'onQuery')){
-      $this->onQuery();
-    }
-  }
+define('db', 'db/');
+define('sql', 'sql/');
 
-  abstract protected function onQuery($string);
-}
+define('usr', 'usr/');
 
-class DatabaseException extends \Exception {}
+
 ?>

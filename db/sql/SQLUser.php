@@ -13,24 +13,36 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ * namespace frame;
  **/
 namespace frame;
 
-require_once(FRAME_PATH.'Connection.php');
+require_once(FRAME_PATH.'User.php');
 
-abstract class Database extends Connection {
+define('SQL_DEFAULT_USER', 'admin');
+define('SQL_DEFAULT_PASS', 'passw');
+
+class SQLUser extends User {
+  
   public function __construct(){
-    echo('\ndatabase');
+    $this->setUserCredentials(SQL_DEFAULT_USER, SQL_DEFAULT_PASS);
   }
 
-  public function query($string){
-    if(method_exists($this, 'onQuery')){
-      $this->onQuery();
-    }
+  protected function onValidate(){
+    echo '\nonValidate()';
   }
 
-  abstract protected function onQuery($string);
+  protected function onTerminate(){
+    echo '\nonTerminate()';
+  }
+
+  protected function onSubscribe(){
+    echo '\nonSubscribe()';
+  }
+
+  protected function onModify($data){
+    echo '\nonModify('.var_dump($data).')';
+  }
 }
 
-class DatabaseException extends \Exception {}
-?>
+class SQLUserException extends UserException{}

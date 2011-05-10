@@ -13,24 +13,17 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ * namespace frame;
  **/
 namespace frame;
 
-require_once(FRAME_PATH.'Connection.php');
+require_once(FRAME_PATH.'ables/Renderable.php');
 
-abstract class Database extends Connection {
-  public function __construct(){
-    echo('\ndatabase');
-  }
+define('', '');
 
-  public function query($string){
-    if(method_exists($this, 'onQuery')){
-      $this->onQuery();
-    }
-  }
-
-  abstract protected function onQuery($string);
+abstract class HTML5Template extends {
+  protected $charset;
+  protected $lang;
+  protected $meta;
 }
-
-class DatabaseException extends \Exception {}
 ?>

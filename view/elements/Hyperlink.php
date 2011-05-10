@@ -13,24 +13,27 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+n * namespace frame;
  **/
 namespace frame;
 
-require_once(FRAME_PATH.'Connection.php');
+require_once(FRAME_PATH.'view/elements/Element.php');
 
-abstract class Database extends Connection {
-  public function __construct(){
-    echo('\ndatabase');
+abstract class Hyperlink extends Element {
+  protected $link;
+
+  /**
+   * sets the link url
+   */
+  public function setLink($link){
+    $this->link = $link;
   }
 
-  public function query($string){
-    if(method_exists($this, 'onQuery')){
-      $this->onQuery();
-    }
+  /**
+   * gets the link url
+   */
+  public function getLink(){
+    return($this->link);
   }
-
-  abstract protected function onQuery($string);
 }
-
-class DatabaseException extends \Exception {}
 ?>

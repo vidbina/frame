@@ -16,21 +16,17 @@
  **/
 namespace frame;
 
-require_once(FRAME_PATH.'Connection.php');
+abstract class Template {
+  protected $types;
 
-abstract class Database extends Connection {
-  public function __construct(){
-    echo('\ndatabase');
+  public function checkType($type){
+    
+  }
+  
+  public function getTypes(){
+    return($types);
   }
 
-  public function query($string){
-    if(method_exists($this, 'onQuery')){
-      $this->onQuery();
-    }
-  }
-
-  abstract protected function onQuery($string);
+  abstract public function trace($type);
 }
-
-class DatabaseException extends \Exception {}
 ?>

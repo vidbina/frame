@@ -16,21 +16,10 @@
  **/
 namespace frame;
 
-require_once(FRAME_PATH.'Connection.php');
-
-abstract class Database extends Connection {
-  public function __construct(){
-    echo('\ndatabase');
-  }
-
-  public function query($string){
-    if(method_exists($this, 'onQuery')){
-      $this->onQuery();
-    }
-  }
-
-  abstract protected function onQuery($string);
+interface Renderable {
+  public function render();
+  public function addElement($element);
+  public function removeElement($element);
+  public function purge();
 }
-
-class DatabaseException extends \Exception {}
 ?>

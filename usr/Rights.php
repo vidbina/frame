@@ -13,24 +13,33 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ * namespace frame;
  **/
 namespace frame;
 
-require_once(FRAME_PATH.'Connection.php');
+abstract class Permission {
+  private $permission;
 
-abstract class Database extends Connection {
-  public function __construct(){
-    echo('\ndatabase');
+  const ALLOW_SELFDESTRUCT = 1;
+  const ALLOW_GROUPMANAGE = 2;
+  const USER_DEF_1 = 4;
+  const USER_DEF_2 = 8;
+  const USER_DEF_3 = 16;
+  const USER_DEF_4 = 32;
+  const USER_DEF_5 = 64;
+  const USER_DEF_6 = 128;
+
+  abstract public function setDefault();
+
+  protected function get(){
+    $this->permission = 0 
+      && ALLOW_SELFDESTRUCT
+      && ALLOW_GROUPMANAGE;
+    return($this);
   }
-
-  public function query($string){
-    if(method_exists($this, 'onQuery')){
-      $this->onQuery();
-    }
-  }
-
-  abstract protected function onQuery($string);
 }
 
-class DatabaseException extends \Exception {}
+abstract class Clearance {
+  
+}
 ?>

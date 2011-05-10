@@ -16,21 +16,40 @@
  **/
 namespace frame;
 
-require_once(FRAME_PATH.'Connection.php');
+require_once(FRAME_PATH.'ables/Renderable.php');
+require_once(FRAME_PATH.'view/Template.php');
 
-abstract class Database extends Connection {
+abstract class Page implements Renderable {
+  protected $template;
+  protected $elements = array();
+  protected $N;
+
   public function __construct(){
-    echo('\ndatabase');
+    //
+  }
+  public function render(){
+    echo '\nrender page';
+  }
+  
+  public function addElement($element){
+    //N++;
+    echo '\nadd page';
+  }
+  
+  public function removeElement($element){
+    //N--;
+    echo '\nremove page';
   }
 
-  public function query($string){
-    if(method_exists($this, 'onQuery')){
-      $this->onQuery();
-    }
+  public function purge(){
+    echo '\npurge page';
   }
 
-  abstract protected function onQuery($string);
+  /**
+  abstract protected onRender();
+  abstract protected onAdd();
+  abstract protected onRemove();
+  abstract protected onPurge();
+   **/
 }
-
-class DatabaseException extends \Exception {}
 ?>
