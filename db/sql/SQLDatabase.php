@@ -13,12 +13,12 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * namespace frame;
  **/
 namespace frame;
 
-require_once(FRAME_PATH.db.'Database.php');
+require_once(FRAME_PATH.db.Database);
 
+// TODO: find out where best to place such information, should be customizable
 define('SQL_DEFAULT_PATH', 'localhost');
 define('SQL_DEFAULT_USER', 'admin');
 define('SQL_DEFAULT_PASS', 'passw');

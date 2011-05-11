@@ -16,13 +16,8 @@
  **/
 namespace frame;
 
-require_once(FRAME_PATH.ables.'Connectable.php');
-require_once(FRAME_PATH.ables.'Inloggable.php');
-
-define("CONNECTED", 2);
-define("DISCONNECTED", 1);
-define("ERROR", -1);
-define("UNKNOWN", 0);
+require_once(FRAME_PATH.ables.Connectable);
+require_once(FRAME_PATH.ables.Inloggable);
 
 abstract class Connection implements Connectable, Inloggable {
   protected $state;
@@ -72,7 +67,7 @@ abstract class Connection implements Connectable, Inloggable {
   public function ping(){
     onPing();
     // TODO: check for connection before executing ping
-    if($state = CONNECTED){
+    if($state = Connectable::CONNECTED){
       echo("/nping:connected");
       return(true);
     }

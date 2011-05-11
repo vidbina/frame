@@ -16,7 +16,7 @@
  **/
 namespace frame;
 
-require_once(FRAME_PATH.ables.'Templatable.php');
+require_once(FRAME_PATH.ables.Templatable);
 
 abstract class Template {
   protected $template;

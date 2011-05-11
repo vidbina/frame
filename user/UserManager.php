@@ -13,12 +13,11 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * namespace frame;
  **/
 namespace frame;
 
-require_once(FRAME_PATH.ables.'Inloggable.php');
-require_once(FRAME_PATH.user.'Rights.php');
+require_once(FRAME_PATH.ables.Inloggable);
+require_once(FRAME_PATH.user.Rights);
 
 abstract class UserManager {
   Inloggable $entity;

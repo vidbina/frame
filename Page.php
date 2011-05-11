@@ -16,8 +16,8 @@
  **/
 namespace frame;
 
-require_once(FRAME_PATH.view.'Template.php');
-require_once(FRAME_PATH.ables.'Renderable.php');
+require_once(FRAME_PATH.ables.Renderable);
+require_once(FRAME_PATH.view.Template);
 
 abstract class Page implements Renderable, Templatable {
   protected $elements = array();

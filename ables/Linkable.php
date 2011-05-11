@@ -17,8 +17,6 @@
 namespace frame;
 
 interface Linkable {
-  protected $link;
-  
   /**
    * set the url to the link
    */

@@ -13,11 +13,10 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * namespace frame;
  **/
 namespace frame;
 
-require_once(FRAME_PATH.view.'Template.php');
+require_once(FRAME_PATH.view.Template);
 
 class HTML5Template extends Template {
   protected $charset;

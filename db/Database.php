@@ -16,11 +16,11 @@
  **/
 namespace frame;
 
-require_once(FRAME_PATH.'Connection.php');
+require_once(FRAME_PATH.Connection);
 
 abstract class Database extends Connection {
   public function __construct(){
-    echo('\ndatabase');
+    echo("\ndatabase");
   }
 
   public function query($string){

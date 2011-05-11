@@ -13,12 +13,11 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
-n * namespace frame;
  **/
 namespace frame;
 
-require_once(FRAME_PATH.ables.'Linkable.php');
-require_once(FRAME_PATH.'view/elements/Element.php');
+require_once(FRAME_PATH.ables.Linkable);
+require_once(FRAME_PATH.view.Element);
 
 abstract class Hyperlink extends Element implements Linkable {
   protected $link;
