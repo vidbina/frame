@@ -14,15 +14,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
+namespace frame;
 
-define('ables', 'ables/');
-
-define('view', 'view/');
-
-define('db', 'db/');
-define('sql', 'sql/');
-
-define('usr', 'usr/');
-
-
+interface Templatable {
+  public function setTemplate($template);
+  public function getTemplate();
+}
 ?>

@@ -17,9 +17,10 @@ n * namespace frame;
  **/
 namespace frame;
 
+require_once(FRAME_PATH.ables.'Linkable.php');
 require_once(FRAME_PATH.'view/elements/Element.php');
 
-abstract class Hyperlink extends Element {
+abstract class Hyperlink extends Element implements Linkable {
   protected $link;
 
   /**

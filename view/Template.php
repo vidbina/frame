@@ -16,7 +16,10 @@
  **/
 namespace frame;
 
+require_once(FRAME_PATH.ables.'Templatable.php');
+
 abstract class Template {
+  protected $template;
   protected $types;
 
   public function checkType($type){

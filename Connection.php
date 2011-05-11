@@ -16,9 +16,8 @@
  **/
 namespace frame;
 
-require_once(FRAME_PATH.'ables/Connectable.php');
-require_once(FRAME_PATH.'ables/Inloggable.php');
-require_once(FRAME_PATH.'ables/Inloggable.php');
+require_once(FRAME_PATH.ables.'Connectable.php');
+require_once(FRAME_PATH.ables.'Inloggable.php');
 
 define("CONNECTED", 2);
 define("DISCONNECTED", 1);

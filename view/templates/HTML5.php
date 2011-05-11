@@ -17,13 +17,22 @@
  **/
 namespace frame;
 
-require_once(FRAME_PATH.'ables/Renderable.php');
+require_once(FRAME_PATH.view.'Template.php');
 
-define('', '');
-
-abstract class HTML5Template extends {
+class HTML5Template extends Template {
   protected $charset;
   protected $lang;
   protected $meta;
+
+  public function __content(){
+    // no-op
+  }
+
+  /**
+   * trace the given Element type with the appropriate content
+   */
+  public function trace($type){
+    echo('<unit>value</unit>');
+  }
 }
 ?>

@@ -16,7 +16,8 @@
  **/
 namespace frame;
 
-require_once(FRAME_PATH.'view/elements/Element.php');
+require_once(FRAME_PATH.ables.'Linkable.php');
+require_once(FRAME_PATH.view.elements.'Element.php');
 
 class Image extends Element implements Linkable {
   protected $image;

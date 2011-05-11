@@ -16,11 +16,10 @@
  **/
 namespace frame;
 
-require_once(FRAME_PATH.'ables/Renderable.php');
-require_once(FRAME_PATH.'view/Template.php');
+require_once(FRAME_PATH.view.'Template.php');
+require_once(FRAME_PATH.ables.'Renderable.php');
 
-abstract class Page implements Renderable {
-  protected $template;
+abstract class Page implements Renderable, Templatable {
   protected $elements = array();
   protected $N;
 
@@ -28,7 +27,16 @@ abstract class Page implements Renderable {
     //
   }
   public function render(){
-    echo '\nrender page';
+    if(!isset($this->template)){
+      echo($this->template);
+      throw new PageException('template not set');
+    }
+    if(!isset($elements)){
+      throw new PageException('no elements');
+    }
+    $this->onRender();
+    // is returning even necessary?
+    return true;
   }
   
   public function addElement($element){
@@ -45,11 +53,25 @@ abstract class Page implements Renderable {
     echo '\npurge page';
   }
 
+  // TODO: design class which defines template methods
+  public function setTemplate($template){
+    echo("\nsetting template: ");
+    var_dump($template);
+    echo("\n\n");
+    $this->template = $template;
+  }
+
+  public function getTemplate(){
+    return($this->template);
+  }
+
+  abstract protected function onRender();
   /**
-  abstract protected onRender();
-  abstract protected onAdd();
-  abstract protected onRemove();
+  abstract protected onAddElement();
+  abstract protected onRemoveElement();
   abstract protected onPurge();
    **/
-}
+  }
+
+class PageException extends \Exception {}
 ?>

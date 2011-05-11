@@ -17,29 +17,24 @@
  **/
 namespace frame;
 
-require_once(FRAME_PATH.'Database.php');
-require_once(FRAME_PATH.'db/sql/SQLUser.php');
+require_once(FRAME_PATH.db.'Database.php');
 
 define('SQL_DEFAULT_PATH', 'localhost');
+define('SQL_DEFAULT_USER', 'admin');
+define('SQL_DEFAULT_PASS', 'passw');
 
 class SQLDatabase extends Database {
   private $link;
-  private $user;
   
   public function __construct($path){
     // set default path if empty argument is passed
     if(empty($path)){
       $path = SQL_DEFAULT_PATH;
     }
-
-    // create a user
-    try{
-      $user = new SQLUser();
-    }catch(Exception $e) {
-      throw new SQLException($e);
-    }
-
+    // write values to object
     $this->setTarget($path);
+    $this->setUser(SQL_DEFAULT_USER);
+    $this->setPassphrase(SQL_DEFAULT_PASS);
   }
 
   protected function onConnect(){
@@ -66,8 +61,10 @@ class SQLDatabase extends Database {
     echo("\nwake");
   }
 
-  protected function onQuery($string){
-    echo('\nquery');
+  public function query($string){
+    if(!link){ return false; }
+    echo($string);
+    return(mysql_query($string));
   }
 
   public function validate(){
@@ -81,9 +78,12 @@ class SQLDatabase extends Database {
   public function subscribe(){
     echo("\nsubscribe");
   }
+
+  public function onQuery($string){
+    echo("\nquery");
+  }
 }
 
 class SQLPathException extends \Exception {}
 class SQLQueryException extends \Exception {}
-class SQLException extends \Exception {}
 ?>

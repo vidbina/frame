@@ -17,8 +17,8 @@
  **/
 namespace frame;
 
-require_once(FRAME_PATH.'ables/Inloggable.php');
-require_once(FRAME_PATH.'usr/Rights.php');
+require_once(FRAME_PATH.ables.'Inloggable.php');
+require_once(FRAME_PATH.user.'Rights.php');
 
 abstract class UserManager {
   Inloggable $entity;

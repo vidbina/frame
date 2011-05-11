@@ -16,6 +16,8 @@
  **/
 namespace frame;
 
+require_once(FRAME_PATH.ables.'Drawable.php');
+
 abstract class Element implements Drawable {
   protected $template;
 
