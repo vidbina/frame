@@ -23,13 +23,12 @@ abstract class Element implements Drawable {
   protected $template;
 
   public function __construct(){
-
+    $this->visibility = Drawable::VISIBLE;
   }
 
   public function draw(){
     if($this->visibility == Drawable::VISIBLE){
-      $this->onDraw();
-      return true;
+      return($this->onDraw());
     }
     return false;
   }

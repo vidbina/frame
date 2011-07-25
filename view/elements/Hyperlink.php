@@ -19,9 +19,15 @@ namespace frame;
 require_once(FRAME_PATH.ables.Linkable);
 require_once(FRAME_PATH.view.Element);
 
-abstract class Hyperlink extends Element implements Linkable {
+class Hyperlink extends Element implements Linkable {
   protected $link;
+  protected $content;
 
+  public function __construct($link, $content){
+    parent::__construct();
+    $this->setLink($link);
+    $this->setContent($content);
+  }
   /**
    * sets the link url
    */
@@ -34,6 +40,21 @@ abstract class Hyperlink extends Element implements Linkable {
    */
   public function getLink(){
     return($this->link);
+  }
+
+  public function setContent($content){
+    $this->content = $content;
+  }
+
+  /**
+   * draw the image
+   */
+  protected function onDraw(){
+    if(!empty($this->link)){
+      return('<a href=\"'.$this->link.'\">'.$this->content.'</a>');
+    }
+    throw new ElementException('empty imagelink');
+    return false;
   }
 }
 ?>

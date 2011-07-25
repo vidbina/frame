@@ -60,6 +60,14 @@ class Container implements Structurable{
   }
 
   /**
+   * Returns the content of the container
+   * @return content of the container, whatever that may be
+   */
+  public function getContent(){
+    return($this->contents);
+  }
+
+  /**
    * remove all Elements from container
    * @return boolean
    */

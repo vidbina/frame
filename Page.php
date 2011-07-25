@@ -50,10 +50,11 @@ abstract class Page extends Container implements Renderable, Templatable {
     // set title and contents
     $content["title"] = $this->title;
     $content["body"] = $this->contents;
-    
+    $output = "";
     foreach($this->contents as $item){
-      echo($this->template->trace($item));
+      $output .= $this->template->trace($item);
     }
+    echo($output);
     // is returning even necessary?
     return true;
   }

@@ -19,40 +19,82 @@ namespace frame;
 require_once(FRAME_PATH.ables.'Linkable.php');
 require_once(FRAME_PATH.view.'Element.php');
 
-class Image extends Element implements Linkable {
+class Image extends Element {
   protected $image;
+  protected $description;
+  protected $width;
+  protected $height;
 
   public function __construct($image){
+    parent::__construct();
     $this->image = $image;
-    $this->link = '#';
   }
+
+  /**
+   * draw the image
+   */
+  protected function onDraw(){
+    if(!empty($this->image)){
+     return('<img src=\"'.$this->image.'\" alt='.$this->description.'/>');
+    }
+    throw new ElementException('empty image');
+    return false;
+  } 
+
   /**
    * sets the url to the image resource
    */
   public function setSource($target){
     $this->image = $target;
   }
+
   /**
-   * set the url to the link
+   * Sets the description for the image, this string will be used as the alt-text
+   * @param description the description text for the image
    */
-  public function setLink($link){
-    $this->link = $link;
+  public function setDescription($description){
+    $this->description = $description;
   }
+
+
   /**
-   * get the url to the link
+   * Sets the dimensions for the image resource
+   * @param w width
+   * @param h height
    */
-  public function getLink(){
-    return($this->link);
+  public function setDimensions($w, $h){
+    $this->setWidth($w);
+    $this->setHeight($h);
   }
+  
   /**
-   * draw the image
+   * Sets the width of the image resource
+   * @param w width
    */
-  protected function onDraw(){
-    if(!empty($image)){
-      return('<a href=\"'.$this->link.'\">'.$this->image.'</a>');
-    }
-    throw new ElementException('empty image');
-    return false;
+  public function setWidth($w){
+    $this->width = $w;
+  }
+
+  /**
+   * Sets the height of the image resource
+   * @param h height
+   */
+  public function setHeight($h){
+    $this->height = $h;
+  }
+
+  /**
+   * Gets the width of the image resource
+   */
+  public function getWidth(){
+    return($this->width);
+  }
+
+  /**
+   * Gets the height of the image resource
+   */
+  public function getHeight(){
+    return($this->height);
   }
 }
 ?>

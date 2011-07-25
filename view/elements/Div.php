@@ -20,38 +20,44 @@ require_once(FRAME_PATH.ables.'Linkable.php');
 require_once(FRAME_PATH.view.'Element.php');
 require_once(FRAME_PATH.Container);
 
-class Div extends Element implements Structurable {
+class Div extends Element {
   protected $content;
 
   public function __construct($content){
+    parent::__construct();
+    //    $this->container = new Container();
     $this->content = $content;
     $this->type = "div";
   }
+
   /**
-   * sets the url to the image resource
-   */
-  public function setContent($content){
-    $this->content = $content;
-  }
-  /**
-   * draw the image
+   * draw the element
    */
   protected function onDraw(){
-    if(!empty($this->content)){
-      return("<div>".$this->content."</div>");
-    }
-    throw new ElementException('empty div');
-    return false;
+    $output = "<div>".$this->content."</div>";
+    return($output);
+    /* throw new ElementException('empty div'); */
+    /* return false; */
+  }
+  
+  protected function setContent($content){
+    $this->content = $content;
   }
 
-  public function addElement($element){
-    $this->content->addElement($element);
+  protected function getContent(){
+    return($this->content);
   }
-  public function removeElement($element){
-    $this->content->removeElement($element);
-  }
-  public function purge(){
-    $this->content->purge();
-  }
+  /* public function addElement($element){ */
+  /*   $this->container->addElement($element); */
+  /* } */
+  /* public function removeElement($element){ */
+  /*   $this->container->removeElement($element); */
+  /* } */
+  /* public function getContent(){ */
+  /*   $this->container->getContent(); */
+  /* } */
+  /* public function purge(){ */
+  /*   $this->container->purge(); */
+  /* } */
 }
 ?>

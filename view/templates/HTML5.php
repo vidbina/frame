@@ -18,6 +18,7 @@ namespace frame;
 
 require_once(FRAME_PATH.view.Template);
 
+require_once(FRAME_PATH.view.Element);
 // HTML5 elements
 //require_once(FRAME_PATH.view.elements.Hyperlink);
 require_once(FRAME_PATH.view.elements.Image);
@@ -36,29 +37,11 @@ class HTML5Template extends Template {
    * trace the given Element type with the appropriate content
    */
   public function trace($item){
-    // handle the different elements
-
-    // handle non-array elements as strings
-    if(!is_array($item)){
-      return($item);
-    }
-
     $output = "";
-    // handle HTML5 elements
-    switch($item["type"]){
-    case 'image':
-      $temp = new Image("test");
-      $temp.draw();
-      break;
-    case 'div':
-      $output .= "<div>".$this->trace($item["content"])."</div>";
-      break;
-    default:
-      if(isset($item["content"])){
-	var_dump($item["content"]);
-	$output = $item["content"];
-      }
-      break;
+    // handle Element objects
+    if(is_a($item, 'frame\Element')){
+      // handle HTML5 elements
+      $output .= "\n".$item->draw();
     }
     return($output);
   }
