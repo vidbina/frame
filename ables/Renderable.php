@@ -22,20 +22,10 @@ interface Renderable {
    * @return boolean
    */
   public function render();
-  /**
-   * adds the passed on Element resource to the Renderable obj
-   * @params element the Element obj to be added
-   */
-  public function addElement($element);
-  /**
-   * removes the passed on Element resource from the Renderable obj
-   * @params element the Element obj to be removed
-   */
-  public function removeElement($element);
-  /**
-   * remove all Elements from the Renderable obj
-   * @return boolean
-   */
-  public function purge();
 }
+
+abstract class RenderCallback{
+  abstract public function onRender();
+}
+
 ?>

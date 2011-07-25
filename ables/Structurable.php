@@ -16,27 +16,14 @@
  **/
 namespace frame;
 
-// RETHINK!!!
-// are elements added to templates or simply to pages based on the instructions,
-// as dictated by the template???
-// might end up redesigning the structure of the frame to incorporate template-based
-// page structures rather then template-comprised pages.
-
-abstract class Template {
-  protected $template;
-  protected $types;
-  protected $charset = "utf-8";
-
-  public function checkType($type){
-    
-  }
-  
-  public function getTypes(){
-    return($types);
-  }
-
-  abstract public function trace($item);
-  abstract public function addElement($element);
-  abstract public function removeElement($element);
+interface Structurable {
+  /**
+   * allow structuring the resource by adding and removing elements
+   * @return boolean
+   */
+  public function addElement($element);
+  public function removeElement($element);
+  public function purge();
 }
+
 ?>

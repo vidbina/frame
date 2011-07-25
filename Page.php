@@ -17,47 +17,49 @@
 namespace frame;
 
 require_once(FRAME_PATH.ables.Renderable);
-require_once(FRAME_PATH.view.Template);
+require_once(FRAME_PATH.ables.Templatable);
+require_once(FRAME_PATH.Container);
 
-abstract class Page implements Renderable, Templatable {
-  protected $elements = array();
-  protected $N;
+abstract class Page extends Container implements Renderable, Templatable {
+  // private page fields
+  private $title = "Untitled";
+  private $template;
+  //private $meta;
 
   public function __construct(){
     //
   }
+
+  /**
+   * renders the page's contents
+   */
   public function render(){
+    $content = array();
+
     if(!isset($this->template)){
-      echo($this->template);
       throw new PageException('template not set');
     }
-    if(!isset($elements)){
-      throw new PageException('no elements');
+    if(!isset($this->contents)){
+      throw new PageException('no content');
     }
-    $this->onRender();
+    // invoke callback
+    if(method_exists($this, "onRender")){
+      $this->onRender();
+    }
+    
+    // set title and contents
+    $content["title"] = $this->title;
+    $content["body"] = $this->contents;
+    
+    foreach($this->contents as $item){
+      echo($this->template->trace($item));
+    }
     // is returning even necessary?
     return true;
   }
   
-  public function addElement($element){
-    //N++;
-    echo '\nadd page';
-  }
-  
-  public function removeElement($element){
-    //N--;
-    echo '\nremove page';
-  }
-
-  public function purge(){
-    echo '\npurge page';
-  }
-
   // TODO: design class which defines template methods
   public function setTemplate($template){
-    echo("\nsetting template: ");
-    var_dump($template);
-    echo("\n\n");
     $this->template = $template;
   }
 
@@ -65,7 +67,6 @@ abstract class Page implements Renderable, Templatable {
     return($this->template);
   }
 
-  abstract protected function onRender();
   /**
   abstract protected onAddElement();
   abstract protected onRemoveElement();

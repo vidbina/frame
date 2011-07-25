@@ -18,41 +18,40 @@ namespace frame;
 
 require_once(FRAME_PATH.ables.'Linkable.php');
 require_once(FRAME_PATH.view.'Element.php');
+require_once(FRAME_PATH.Container);
 
-class Image extends Element implements Linkable {
-  protected $image;
+class Div extends Element implements Structurable {
+  protected $content;
 
-  public function __construct($image){
-    $this->image = $image;
-    $this->link = '#';
+  public function __construct($content){
+    $this->content = $content;
+    $this->type = "div";
   }
   /**
    * sets the url to the image resource
    */
-  public function setSource($target){
-    $this->image = $target;
-  }
-  /**
-   * set the url to the link
-   */
-  public function setLink($link){
-    $this->link = $link;
-  }
-  /**
-   * get the url to the link
-   */
-  public function getLink(){
-    return($this->link);
+  public function setContent($content){
+    $this->content = $content;
   }
   /**
    * draw the image
    */
   protected function onDraw(){
-    if(!empty($image)){
-      return('<a href=\"'.$this->link.'\">'.$this->image.'</a>');
+    if(!empty($this->content)){
+      return("<div>".$this->content."</div>");
     }
-    throw new ElementException('empty image');
+    throw new ElementException('empty div');
     return false;
+  }
+
+  public function addElement($element){
+    $this->content->addElement($element);
+  }
+  public function removeElement($element){
+    $this->content->removeElement($element);
+  }
+  public function purge(){
+    $this->content->purge();
   }
 }
 ?>

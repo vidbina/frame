@@ -20,9 +20,6 @@ interface Drawable {
   const HIDDEN = 0;
   const VISIBLE = 1;
   
-  protected $type;
-  protected $visibility;
-
   public function draw();
   public function setVisibility($visibility);
   public function getType();

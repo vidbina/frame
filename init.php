@@ -25,6 +25,7 @@ define('FRAME_PATH', 'php/frame/');
 define('Connection', 'Connection.php');
 define('User', 'User.php');
 define('Page', 'Page.php');
+define('Container', 'Container.php');
 
 // the ables directories
 define('ables', 'ables/');
@@ -36,12 +37,13 @@ define('ables', 'ables/');
   define('Queryable', 'Queryable.php');
   define('Renderable', 'Renderable.php');
   define('Templatable', 'Templatable.php');
-
+  define('Structurable', 'Structurable.php');
 }
 
 // the db directories
 define('db', 'db/');
 {
+  define('Database', 'Database.php');
   define('sql', 'sql/');
   {
     define('SQLDatabase', 'SQLDatabase.php');
@@ -64,11 +66,16 @@ define('view', 'view/');
 {
   define('Element', 'Element.php');
   define('Template', 'Template.php');
-  
   define('elements', 'elements/');
-  {}
+  {
+    define('Hyperlink', 'Hyperlink.php');
+    define('Image', 'Image.php');
+    define('Div', 'Div.php');
+  }
   define('templates', 'templates/');
-  {}
+  {
+    define('HTML5', 'HTML5.php');
+  }
 }
  
 ?>

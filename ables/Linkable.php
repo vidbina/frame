@@ -25,4 +25,5 @@ interface Linkable {
    * get the url to the link
    */
   public function getLink();
+}
 ?>

@@ -19,6 +19,7 @@ namespace frame;
 require_once(FRAME_PATH.ables.Drawable);
 
 abstract class Element implements Drawable {
+  protected $type;
   protected $template;
 
   public function __construct(){

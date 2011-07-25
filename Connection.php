@@ -42,6 +42,9 @@ abstract class Connection implements Connectable, Inloggable {
    */
   abstract protected function onWake();
 
+  /**
+   * this method pretty damn obvious, I suppose
+   */
   public function connect(){
     // execute the connect routine
     try{
@@ -55,27 +58,46 @@ abstract class Connection implements Connectable, Inloggable {
     }
   }
 
+  /**
+   * another one that speaks for itself
+   */
   public function disconnect(){
     // execute the disconnect routine
-    $this->onDisconnect();
+    try{
+      $this->onDisconnect();
+    }catch(Exception $e){
+      throw new ConnectionException();
+    }
     // invoke the callback if implemented
     if(method_exists($this, "onDisconnected")){
       $this->onDisconnected();
     }
   }
 
+  /**
+   * checks whether a valid connection is known to the object
+   */
   public function ping(){
     onPing();
     // TODO: check for connection before executing ping
     if($state = Connectable::CONNECTED){
       echo("/nping:connected");
       return(true);
+    }else{
+      return(false);
     }
   }
 
+  /**
+   * reanimate the connection if dead, needs some serious thought
+   */
   public function wake(){
     // TODO: check for connection before executing wake
     onWake();
+    if($state = Connectable::UNKNOWN){
+      this.connect();
+    }
+    //onPostWake();
   }
 
   /**
@@ -92,11 +114,6 @@ abstract class Connection implements Connectable, Inloggable {
   public function setPassphrase($string){
     $this->passphrase = $string;
   }
-}
-
-abstract class ConnectionCallback {
-  abstract protected function onConnected();
-  abstract protected function onDisconnected();
 }
 
 class ConnectionException extends \Exception {}

@@ -38,4 +38,10 @@ interface Connectable {
    */
   public function wake();
 }
+
+abstract class ConnectionCallback {
+  abstract protected function onConnected();
+  abstract protected function onDisconnected();
+}
+
 ?>
