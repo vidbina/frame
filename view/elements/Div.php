@@ -26,8 +26,8 @@ class Div extends Element {
   public function __construct($content){
     parent::__construct();
     //    $this->container = new Container();
-    $this->content = $content;
-    $this->type = "div";
+    $this->setContent($content);
+    $this->setType("div");
   }
 
   /**
@@ -40,11 +40,11 @@ class Div extends Element {
     /* return false; */
   }
   
-  protected function setContent($content){
+  public function setContent($content){
     $this->content = $content;
   }
 
-  protected function getContent(){
+  public function getContent(){
     return($this->content);
   }
   /* public function addElement($element){ */

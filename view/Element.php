@@ -18,12 +18,19 @@ namespace frame;
 
 require_once(FRAME_PATH.ables.Drawable);
 
-abstract class Element implements Drawable {
+abstract class Element implements Drawable, Templatable{
   protected $type;
   protected $template;
+  // host as context?
+  protected $host;
 
   public function __construct(){
     $this->visibility = Drawable::VISIBLE;
+    
+  }
+
+  public function setContext($context){
+    $this->host = $context;
   }
 
   public function draw(){
@@ -48,13 +55,25 @@ abstract class Element implements Drawable {
   }
 
   public function setType($type){
-    // TODO: write checkType for template
-    if(!$template::checkType($type)){
-      throw new ElementException('invalid type');
-      return false;
-    }
+    /* // TODO: write checkType for template */
+    /* if(!$template::checkType($type)){ */
+    /*   throw new ElementException('invalid type'); */
+    /*   return false; */
+    /* } */
     $this->type = $type;
     return true;
+  }
+
+  public function setTemplate($template){
+    $this->template = $template;
+  }
+  public function getTemplate(){
+    return($this->template);
+  }
+  public function updateTemplate(){
+    if(method_exists($this->host->getTemplate())){
+      $this->setTemplate($this->host->getTemplate());
+    }
   }
 
   abstract protected function onDraw();

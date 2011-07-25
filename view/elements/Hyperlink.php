@@ -27,6 +27,7 @@ class Hyperlink extends Element implements Linkable {
     parent::__construct();
     $this->setLink($link);
     $this->setContent($content);
+    $this->setType("hyperlink");
   }
   /**
    * sets the link url
@@ -44,6 +45,10 @@ class Hyperlink extends Element implements Linkable {
 
   public function setContent($content){
     $this->content = $content;
+  }
+
+  public function getContent(){
+    return($this->content);
   }
 
   /**

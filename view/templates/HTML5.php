@@ -38,14 +38,37 @@ class HTML5Template extends Template {
    */
   public function trace($item){
     $output = "";
+    echo($item->getType());
     // handle Element objects
     if(is_a($item, 'frame\Element')){
       // handle HTML5 elements
-      $output .= "\n".$item->draw();
+      switch($item->getType()){
+      case 'div':
+	$output .= '<div>'.$item->getContent().'</div>';
+	break;
+      case 'hyperlink':
+	$output .= '<a href=\"'.$item->getLink().'\">'.$item->getContent().'</a>';
+	break;
+      case 'image':
+	$output .= '<img src=\"'.$item->getSource().'\" alt='.$item->getDescription().'/>';
+	break;
+      default:
+	break;
+      }
+      //'<img src=\"'.$this->image.'\" alt='.$this->description.'/>'
+      //'<a href=\"'.$this->link.'\">'.$this->content.'</a>'
+      //'<div>.$this->content.</div>'
+      //$output .= "\n".$item->draw();
     }
     return($output);
   }
-  
+
+  public function outline($data){
+    /* $doctype = "<!DOCTYPE html>"; */
+    /* $head = "<head><meta charset=\"utf-8\" /><title>".$data["title"]."</title></head>"; */
+    /* $body = "<body>".$data["body"]."</body>"; */
+    /* $page = "<html lang="en"></html>"; */
+  }
   /**
    *
    */

@@ -52,6 +52,7 @@ abstract class Page extends Container implements Renderable, Templatable {
     $content["body"] = $this->contents;
     $output = "";
     foreach($this->contents as $item){
+      var_dump($item);
       $output .= $this->template->trace($item);
     }
     echo($output);
@@ -66,6 +67,14 @@ abstract class Page extends Container implements Renderable, Templatable {
 
   public function getTemplate(){
     return($this->template);
+  }
+
+  public function setTitle($title){
+    $this->title = $title;
+  }
+
+  public function getTitle(){
+    return($this->title);
   }
 
   /**

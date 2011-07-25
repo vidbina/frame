@@ -28,6 +28,7 @@ class Image extends Element {
   public function __construct($image){
     parent::__construct();
     $this->image = $image;
+    $this->setType("image");
   }
 
   /**
