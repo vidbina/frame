@@ -21,6 +21,7 @@ require_once(FRAME_PATH.view.'Element.php');
 require_once(FRAME_PATH.Container);
 
 class Div extends Element {
+	protected $privates;
   protected $content;
 
   public function __construct($content){
@@ -33,7 +34,9 @@ class Div extends Element {
   /**
    * draw the element
    */
+	// TODO: should request drawing instructions from Template
   protected function onDraw(){
+		$output = $template->trace("div", $this->content);
     $output = "<div>".$this->content."</div>";
     return($output);
     /* throw new ElementException('empty div'); */

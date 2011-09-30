@@ -20,7 +20,9 @@
 
 namespace frame;
 // frame root folder
-define('FRAME_PATH', 'php/frame/');
+// FRAM_PATH should be manually configured by developer
+//define('FRAME_PATH', 'php/frame/');
+//define('FRAME_PATH', './');
 // defines filenames to the basic elements
 define('Connection', 'Connection.php');
 define('User', 'User.php');

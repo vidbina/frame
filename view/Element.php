@@ -18,9 +18,10 @@ namespace frame;
 
 require_once(FRAME_PATH.ables.Drawable);
 
-abstract class Element implements Drawable, Templatable{
+abstract class Element implements Drawable, Templatable, Styleable{
   protected $type;
   protected $template;
+	protected $style;
   // host as context?
   protected $host;
 
@@ -33,6 +34,7 @@ abstract class Element implements Drawable, Templatable{
     $this->host = $context;
   }
 
+	// drawable
   public function draw(){
     if($this->visibility == Drawable::VISIBLE){
       return($this->onDraw());
@@ -64,17 +66,34 @@ abstract class Element implements Drawable, Templatable{
     return true;
   }
 
+	// templatable properties
   public function setTemplate($template){
     $this->template = $template;
+		return true;
   }
+
   public function getTemplate(){
     return($this->template);
   }
+
   public function updateTemplate(){
     if(method_exists($this->host->getTemplate())){
       $this->setTemplate($this->host->getTemplate());
+			return true;
     }
+		return false;
   }
+
+	// styleable properties
+	public function setStyle($style){
+		$this->style = $style;
+	}
+	public function clearStyle(){
+		$this->style = null;
+	}
+	public function getStyle(){
+		return $style ? ($style != "" || $style != null) : null
+	}
 
   abstract protected function onDraw();
 }

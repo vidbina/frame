@@ -38,19 +38,20 @@ class HTML5Template extends Template {
    */
   public function trace($item){
     $output = "";
+		$specifics = "";
     echo($item->getType());
     // handle Element objects
     if(is_a($item, 'frame\Element')){
       // handle HTML5 elements
       switch($item->getType()){
       case 'div':
-	$output .= '<div>'.$item->getContent().'</div>';
+	$output .= '<div'.$specifics.'>'.$item->getContent().'</div>';
 	break;
       case 'hyperlink':
-	$output .= '<a href=\"'.$item->getLink().'\">'.$item->getContent().'</a>';
+	$output .= '<a href=\"'.$item->getLink().'\"'.$specifics.'>'.$item->getContent().'</a>';
 	break;
       case 'image':
-	$output .= '<img src=\"'.$item->getSource().'\" alt='.$item->getDescription().'/>';
+	$output .= '<img src=\"'.$item->getSource().'\" alt=\"'.$item->getDescription().'\"'.$specifics.'/>';
 	break;
       default:
 	break;

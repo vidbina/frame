@@ -20,7 +20,7 @@ require_once(FRAME_PATH.ables.Renderable);
 require_once(FRAME_PATH.ables.Templatable);
 require_once(FRAME_PATH.Container);
 
-abstract class Page extends Container implements Renderable, Templatable {
+class Page extends Container implements Renderable, Templatable {
   // private page fields
   private $title = "Untitled";
   private $template;
@@ -76,13 +76,7 @@ abstract class Page extends Container implements Renderable, Templatable {
   public function getTitle(){
     return($this->title);
   }
-
-  /**
-  abstract protected onAddElement();
-  abstract protected onRemoveElement();
-  abstract protected onPurge();
-   **/
-  }
+}
 
 class PageException extends \Exception {}
 ?>
