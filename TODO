@@ -1,0 +1,14 @@
+p1: SQL Connections
+p1: Add List, Text (Header, Paragraph) as element
+p1: Working set of HTML5 Templates
+p1: Working user system (local storage of user id's which are verified agains IdProvider such as FB, Google, etc)
+p1: Route handler (a la Rails?!?)
+p1: Add the ability to pass "style" or other attributes to HTML elements (see Template::HTML5)
+p1: Add a checker to object to confirm object types (verify that a passed object is truly a Styleable for instance)
+p1: Add sections which can contain any possible combination of elements (should support rearranging)
+p4: Add support for media (movie and audio)
+p2: API Machine (processing POST, GET, DELETE, UPDATE)
+p2: Implementation of OAuth and OpenID
+p3: PostgreSQL Connections
+p3: Cassandra connections (key -> value databases for search indexing)
+p3: MongoDB connections
