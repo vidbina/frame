@@ -24,6 +24,7 @@ require_once(FRAME_PATH.view.Template);
 class Page extends Container implements Renderable, Templatable {
   // private page fields
   private $title = "Untitled";
+	private $properties;
   private $template;
   //private $meta;
 
@@ -53,9 +54,7 @@ class Page extends Container implements Renderable, Templatable {
       var_dump($item);
       $output .= $this->template->trace($item);
     }
-    echo($output);
-    // is returning even necessary?
-    return true;
+    return($output);
   }
   
   public function setTemplate($template){

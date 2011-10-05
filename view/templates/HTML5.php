@@ -39,22 +39,24 @@ class HTML5Template extends Template {
   public function trace($item){
     $output = "";
 		$specifics = "";
-    echo($item->getType());
     // handle Element objects
     if(is_a($item, 'frame\Element')){
       // handle HTML5 elements
       switch($item->getType()){
       case 'div':
 	$output .= '<div'.$specifics.'>'.$item->getContent().'</div>';
-	break;
+				break;
       case 'hyperlink':
 	$output .= '<a href=\"'.$item->getLink().'\"'.$specifics.'>'.$item->getContent().'</a>';
-	break;
+				break;
       case 'image':
 	$output .= '<img src=\"'.$item->getSource().'\" alt=\"'.$item->getDescription().'\"'.$specifics.'/>';
-	break;
+				break;
+			case 'page':
+	$output .= '<html>'.'</html>';
+				break;
       default:
-	break;
+				break;
       }
       //'<img src=\"'.$this->image.'\" alt='.$this->description.'/>'
       //'<a href=\"'.$this->link.'\">'.$this->content.'</a>'
@@ -64,11 +66,11 @@ class HTML5Template extends Template {
     return($output);
   }
 
-  public function outline($data){
-    /* $doctype = "<!DOCTYPE html>"; */
-    /* $head = "<head><meta charset=\"utf-8\" /><title>".$data["title"]."</title></head>"; */
-    /* $body = "<body>".$data["body"]."</body>"; */
-    /* $page = "<html lang="en"></html>"; */
+  public function wrap($content){
+		/*$doctype = "<!DOCTYPE html>"; 
+    $head = "<head><meta charset=\"utf-8\" /><title>".$data["title"]."</title></head>";
+    $body = "<body>".$data["body"]."</body>"; 
+    $page = "<html lang="en"></html>"; */
   }
   /**
    *
