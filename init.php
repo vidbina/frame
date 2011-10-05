@@ -40,6 +40,7 @@ define('ables', 'ables/');
   define('Renderable', 'Renderable.php');
   define('Templatable', 'Templatable.php');
   define('Structurable', 'Structurable.php');
+	define('Styleable', 'Styleable.php');
 }
 
 // the db directories

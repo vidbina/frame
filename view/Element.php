@@ -17,6 +17,8 @@
 namespace frame;
 
 require_once(FRAME_PATH.ables.Drawable);
+require_once(FRAME_PATH.ables.Templatable);
+require_once(FRAME_PATH.ables.Styleable);
 
 abstract class Element implements Drawable, Templatable, Styleable{
   protected $type;
@@ -27,7 +29,6 @@ abstract class Element implements Drawable, Templatable, Styleable{
 
   public function __construct(){
     $this->visibility = Drawable::VISIBLE;
-    
   }
 
   public function setContext($context){
@@ -92,7 +93,7 @@ abstract class Element implements Drawable, Templatable, Styleable{
 		$this->style = null;
 	}
 	public function getStyle(){
-		return $style ? ($style != "" || $style != null) : null
+		return $style ? ($style != "" || $style != null) : null;
 	}
 
   abstract protected function onDraw();

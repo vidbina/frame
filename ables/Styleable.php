@@ -22,6 +22,6 @@ interface Styleable {
 	// clears all style attributes
 	public function clearStyle();
 	// gets the style attributes
-	public function getStyle($style);
+	public function getStyle();
 }
 ?>

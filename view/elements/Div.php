@@ -16,8 +16,8 @@
  **/
 namespace frame;
 
-require_once(FRAME_PATH.ables.'Linkable.php');
-require_once(FRAME_PATH.view.'Element.php');
+require_once(FRAME_PATH.ables.Linkable);
+require_once(FRAME_PATH.view.Element);
 require_once(FRAME_PATH.Container);
 
 class Div extends Element {
@@ -26,41 +26,45 @@ class Div extends Element {
 
   public function __construct($content){
     parent::__construct();
-    //    $this->container = new Container();
     $this->setContent($content);
     $this->setType("div");
   }
 
-  /**
-   * draw the element
-   */
 	// TODO: should request drawing instructions from Template
   protected function onDraw(){
-		$output = $template->trace("div", $this->content);
+		// TODO: fix template issue
+		//$output = $template->trace("div", $this->content);
     $output = "<div>".$this->content."</div>";
     return($output);
     /* throw new ElementException('empty div'); */
     /* return false; */
   }
   
+	// text-div
   public function setContent($content){
-    $this->content = $content;
+		// always add containers to Div
+		// if not passed a container, make it
+		if(is_a($content, Container)){
+			$this->content = $content;
+		} else{
+			$temp = new Container();
+			$temp->addElement($content);	
+			$this->content = $temp;
+		}
   }
-
   public function getContent(){
     return($this->content);
   }
-  /* public function addElement($element){ */
-  /*   $this->container->addElement($element); */
-  /* } */
-  /* public function removeElement($element){ */
-  /*   $this->container->removeElement($element); */
-  /* } */
-  /* public function getContent(){ */
-  /*   $this->container->getContent(); */
-  /* } */
-  /* public function purge(){ */
-  /*   $this->container->purge(); */
-  /* } */
+
+	// container div
+  public function addElement($element){
+    $this->content->addElement($element); 
+  } 
+  public function removeElement($element){ 
+    $this->content->removeElement($element); 
+  } 
+  public function purge(){ 
+    $this->content->purge(); 
+  } 
 }
 ?>

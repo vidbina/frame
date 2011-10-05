@@ -39,9 +39,6 @@ class Page extends Container implements Renderable, Templatable {
     if(!isset($this->template)){
       throw new PageException('template not set');
     }
-    if(!isset($this->contents)){
-      throw new PageException('no content');
-    }
     // invoke callback
     if(method_exists($this, "onRender")){
       $this->onRender();
@@ -51,7 +48,7 @@ class Page extends Container implements Renderable, Templatable {
     $content["title"] = $this->title;
     $content["body"] = $this->contents;
     $output = "";
-    foreach($this->contents as $item){
+    foreach($content["body"] as $item){
       var_dump($item);
       $output .= $this->template->trace($item);
     }
@@ -62,7 +59,13 @@ class Page extends Container implements Renderable, Templatable {
   
   // TODO: design class which defines template methods
   public function setTemplate($template){
-    $this->template = $template;
+		// TODO: change all is_a's to instanceof?
+		if($template instanceof frame\Template){
+		// if(is_a($template, frame\Template()){
+			$this->template = $template;
+		}else{
+			throw new PageException('invalid template');
+		}
   }
 
   public function getTemplate(){
