@@ -19,6 +19,7 @@ namespace frame;
 require_once(FRAME_PATH.ables.Renderable);
 require_once(FRAME_PATH.ables.Templatable);
 require_once(FRAME_PATH.Container);
+require_once(FRAME_PATH.view.Template);
 
 class Page extends Container implements Renderable, Templatable {
   // private page fields
@@ -57,11 +58,10 @@ class Page extends Container implements Renderable, Templatable {
     return true;
   }
   
-  // TODO: design class which defines template methods
   public function setTemplate($template){
 		// TODO: change all is_a's to instanceof?
-		if($template instanceof frame\Template){
-		// if(is_a($template, frame\Template()){
+		//if($template instanceof frame\Template){
+		if(is_a($template, 'frame\Template')){
 			$this->template = $template;
 		}else{
 			throw new PageException('invalid template');
