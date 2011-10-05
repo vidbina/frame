@@ -15,7 +15,7 @@ class HTML5Test extends PHPUnit_Framework_TestCase {
 	public function testBasicRendering() {
 		$output = $this->page->render();
 		var_dump($output);
-		$this->assertContains("<html", $output);
+		$this->assertContains("<html>", $output);
 		$this->assertContains("</html>", $output);
 	}
 

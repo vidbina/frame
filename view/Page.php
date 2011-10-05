@@ -36,8 +36,6 @@ class Page extends Container implements Renderable, Templatable {
    * renders the page's contents
    */
   public function render(){
-    $content = array();
-
     if(!isset($this->template)){
       throw new PageException('template not set');
     }
@@ -46,15 +44,14 @@ class Page extends Container implements Renderable, Templatable {
       $this->onRender();
     }
     
-    // set title and contents
-    $content["title"] = $this->title;
-    $content["body"] = $this->contents;
-    $output = "";
-    foreach($content["body"] as $item){
-      var_dump($item);
-      $output .= $this->template->trace($item);
+		// pick up contents from container and generate body
+    $pageContent = "";
+    foreach($this->getContent() as $item){
+      $pageContent .= $this->template->trace($item);
     }
-    return($output);
+		// wrap the body in the necessary HTML tags
+		$pageRender = $this->template->wrap($pageContent, $this);
+    return($pageRender);
   }
   
   public function setTemplate($template){

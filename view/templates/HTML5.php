@@ -66,19 +66,26 @@ class HTML5Template extends Template {
     return($output);
   }
 
-  public function wrap($content){
-		/*$doctype = "<!DOCTYPE html>"; 
-    $head = "<head><meta charset=\"utf-8\" /><title>".$data["title"]."</title></head>";
-    $body = "<body>".$data["body"]."</body>"; 
-    $page = "<html lang="en"></html>"; */
-  }
-  /**
-   *
-   */
-  public function addElement($element){
-  }
-  
-  public function removeElement($element){
+  public function wrap($content, $details){
+		if(is_a($details, 'frame\Page')){
+			$strTitle = $details->getTitle();
+			$strBody = $content;
+		}else{
+			$strTitle = "Invalid Use of wrap()";
+			$strBody = "<p><strong>Usage:</strong><code>wrap($content, $details)</code></p>";
+			$strBody .= "<p><code>$content</code> = string</p>";
+			$strBody .= "<p><code>$details</code> = <code>Page<code></p>";
+		}
+		$doctype = "<!DOCTYPE html>"; 
+		$link = "";
+		$style = "";
+		$title = "<title>".$strTitle."</title>";
+		$meta = "<meta charset=\"utf-8\" />";
+    $head = "<head>".$meta.$title.$link.$style."</head>";
+    $body = "<body>".$content."</body>"; 
+		$extra = "lang=\"en\"";
+    $page = "<html ".$extra.">".$head.$body."</html>";
+		return($doctype.$page);
   }
 }
 ?>

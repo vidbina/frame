@@ -36,7 +36,18 @@ abstract class Template {
   }
 
   abstract public function trace($item);
-  abstract public function addElement($element);
-  abstract public function removeElement($element);
+	// details will refer to the details set to container
+	// e.g. for webpages the details will be contained within
+	// the Page object by passing the Page to the wrap method
+	// wrap will be capable of picking up the title, style information
+	// and other mandatory data.
+	// HTML pages will need to return head, title, link and style tags
+	// which will be included into the HTML-friendly Page object.
+	// in that case the Page object might need 
+	// getStyles, getTitle and getScripts information.
+	abstract public function wrap($content, $details);
+	// deprecated... I don't see how one can add an element to a template
+	// abstract public function addElement($element);
+  // abstract public function removeElement($element);
 }
 ?>
