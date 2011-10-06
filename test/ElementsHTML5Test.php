@@ -14,8 +14,7 @@ class HTML5Test extends PHPUnit_Framework_TestCase {
 	// verify that rendered content has opening and closing <html> tags
 	public function testBasicRendering() {
 		$output = $this->page->render();
-		var_dump($output);
-		$this->assertContains("<html>", $output);
+		$this->assertContains("<html", $output);
 		$this->assertContains("</html>", $output);
 	}
 
@@ -32,6 +31,23 @@ class HTML5Test extends PHPUnit_Framework_TestCase {
 		$output = $this->page->render();
 		$wanted = "<title>".$title."</title>";
 		$this->assertContains($wanted, $output);
+	}
+
+	// confirm proper redering of images
+	public function testImage(){
+		// TODO: add  code
+	}
+	// confirm proper redering of links
+	public function testLinks(){
+		// TODO: add  code
+	}
+	// confirm proper redering of divs
+	public function testDivs(){
+		// TODO: add  code
+	}
+	// confirm proper redering of headings
+	public function testHeadings(){
+		// TODO: add  code
 	}
 }
 ?>
