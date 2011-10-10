@@ -20,8 +20,11 @@ require_once(FRAME_PATH.Connection);
 
 abstract class Database extends Connection {
   public function __construct(){
-    echo("\ndatabase");
+		// TODO: consider valid use of constructor
   }
+	/* alt
+	// public function __construct($target)
+	*/
 
   public function query($string){
     if(method_exists($this, 'onQuery')){

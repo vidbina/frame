@@ -16,11 +16,12 @@
  **/
 namespace frame;
 
+
 interface Inloggable {
   /**
    * sets the username
    */
-  public function setUser($string);
+  public function setUsername($string);
   /**
    * sets the passphrase
    */

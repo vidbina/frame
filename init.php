@@ -47,10 +47,12 @@ define('ables', 'ables/');
 define('db', 'db/');
 {
   define('Database', 'Database.php');
-  define('sql', 'sql/');
+
+	define('MySQL', 'mysql/all.php');
+  define('mysql', 'mysql/');
   {
-    define('SQLDatabase', 'SQLDatabase.php');
-    define('SQLUser', 'SQLUser.php');
+    define('MySQLDatabase', 'MySQLDatabase.php');
+    define('MySQLUser', 'MySQLUser.php');
   }
 }
 

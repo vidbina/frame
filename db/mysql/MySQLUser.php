@@ -19,29 +19,43 @@ namespace frame;
 require_once(FRAME_PATH.User);
 
 // TODO: find out where to best place such information, should be customizable
-define('SQL_DEFAULT_USER', 'admin');
-define('SQL_DEFAULT_PASS', 'passw');
 
-class SQLUser extends User {
+class MySQLUser extends User {
   
   public function __construct(){
     $this->setUserCredentials(SQL_DEFAULT_USER, SQL_DEFAULT_PASS);
   }
 
+	// setters are forced required by extension
+
+	// getters to accompany the setters
+	public function getUsername(){
+		return $this->username;
+	}
+	public function getPassphrase(){
+		return $this->passphrase;
+	}
+
+	// callbacks for the common Inloggable methods
   protected function onValidate(){
-    echo '\nonValidate()';
+		// TODO: add code
   }
 
   protected function onTerminate(){
-    echo '\nonTerminate()';
+		// TODO: add code
   }
 
   protected function onSubscribe(){
-    echo '\nonSubscribe()';
+		// TODO: add code
   }
 
+	// salting scheme for this specific user class
+	protected function salt($data){
+		// TODO: add code
+	}
+
   protected function onModify($data){
-    echo '\nonModify('.var_dump($data).')';
+		// TODO: add code
   }
 }
 

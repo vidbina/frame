@@ -19,11 +19,12 @@ namespace frame;
 require_once(FRAME_PATH.db.Database);
 
 // TODO: find out where best to place such information, should be customizable
+// TODO: refactor Connection to implement User object
 define('SQL_DEFAULT_PATH', 'localhost');
 define('SQL_DEFAULT_USER', 'admin');
-define('SQL_DEFAULT_PASS', 'passw');
+define('SQL_DEFAULT_PASS', 'chickenwing');
 
-class SQLDatabase extends Database {
+class MySQLDatabase extends Database {
   private $link;
   
   public function __construct($path){
@@ -33,7 +34,7 @@ class SQLDatabase extends Database {
     }
     // write values to object
     $this->setTarget($path);
-    $this->setUser(SQL_DEFAULT_USER);
+    $this->setUsername(SQL_DEFAULT_USER);
     $this->setPassphrase(SQL_DEFAULT_PASS);
   }
 

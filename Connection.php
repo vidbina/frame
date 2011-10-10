@@ -18,13 +18,16 @@ namespace frame;
 
 require_once(FRAME_PATH.ables.Connectable);
 require_once(FRAME_PATH.ables.Inloggable);
+require_once(FRAME_PATH.User);
 
 abstract class Connection implements Connectable, Inloggable {
   protected $state;
   protected $target;
-  protected $username;
-  protected $passphrase;
+  protected $user;
 
+	public function __construct(){
+		$this->user = new frame\User();
+	}
   /**
    * describes the connect directives
    */
@@ -80,23 +83,18 @@ abstract class Connection implements Connectable, Inloggable {
   public function ping(){
     onPing();
     // TODO: check for connection before executing ping
-    if($state = Connectable::CONNECTED){
-      echo("/nping:connected");
-      return(true);
-    }else{
-      return(false);
-    }
+		return ($state == Connectable::CONNECTED) ? true : false;
   }
 
   /**
    * reanimate the connection if dead, needs some serious thought
    */
   public function wake(){
-    // TODO: check for connection before executing wake
     onWake();
     if($state = Connectable::UNKNOWN){
       this.connect();
     }
+		// TODO: what is PostWake?
     //onPostWake();
   }
 
@@ -108,12 +106,32 @@ abstract class Connection implements Connectable, Inloggable {
   }
 
   public function setUser($user){
-    $this->user = $user;
+		if(is_a($user, 'frame\User') && $user != null){
+				var_dump("orgeona");
+			// do not set blank usernames
+			if($user->getUsername == ""){
+				throw new UserException("blank username");
+			} else {
+		    $this->user = $user;
+			}
+		}else{
+			var_dump("invalid");
+			throw new UserException("invalid user");
+		}
   }
+	
+	public function setUsername($string){
+		//$this->user->setUsername($string);
+		var_dump($this->user);
+	}
 
-  public function setPassphrase($string){
-    $this->passphrase = $string;
-  }
+	public function setPassphrase($string){
+		//$this->user->setPassphrase($string);
+	}
+
+	public function setUserCredentials($user, $pass){
+		$this->user->setUserCredentials($user, $pass);
+	}
 }
 
 class ConnectionException extends \Exception {}

@@ -18,11 +18,20 @@ namespace frame;
 
 require_once(FRAME_PATH.ables.Inloggable);
 
+/**
+ * Wrapper for User information and actions
+ * @author: David Asabina
+ */
 abstract class User implements Inloggable {
   protected $username;
   protected $passphrase;
 
-  public function setUser($string){
+	public function __construct($name, $pass){
+		$this->setUserCredentials($name, $pass);
+	}
+
+	// setters
+  public function setUsername($string){
     $this->username = $string;
     $this->callOnChange();
   }
@@ -38,51 +47,77 @@ abstract class User implements Inloggable {
     $this->callOnChange();
   }
 
+	// getters
+	public function getUsername(){
+		return $this->username;
+	}
+
+	public function getPassphrase(){
+		return $this->passphrase;
+	}
+
+	// callback invokers
+	/**
+	 * invoke callback upon change of user credentials
+	 */ 
   protected function callOnChange(){
     if(method_exists($this, 'onChange')){
       $this->onChange();
     }
   }
 
+	/**
+	 * Primitively check user creds for validity
+	 * RULE: user name can never be blank
+	 * Call the validation callback upon request for validation
+	 */
   public function validate(){
-    if(empty($this->username) || empty($this->passphrase)){
-      throw new UserException('empty password/username');
+    if(empty($this->username)){
+      throw new UserException('cannot validate the nonexisting');
       return false;
     }
 
     try{
-      $this->onValidate();
+      return $this->onValidate();
     }catch(\Exception $e){
       $this->onFail($e);
     }
   }
 
+	/**
+	 * Terminate a User's subscription
+	 */
   public function terminate(){
-    if(empty($this->username) || empty($this->passphrase)){
-      throw new UserException('empty password/username');
+    if(empty($this->username)){
+      throw new UserException('cannot terminate ghost user');
       return false;
     }
 
     try{
-      $this->onTerminate();
+      return $this->onTerminate();
     }catch(\Exception $e){
-      $this->onFail($e);
+      return $this->onFail($e);
     }
   }
 
+	/**
+	 * Subscribe a User
+	 */
   public function subscribe(){
-    if(empty($this->username) || empty($this->passphrase)){
-      throw new UserException('empty password/username');
-      return false;
-    }
+		if(empty($this->username)){
+			throw new UserException('will not create ghosts');
+		}
 
     try{
-      $this->onSubscribe();
+      return $this->onSubscribe();
     }catch(\Exception $e){
-      $this->onFail($e);
+      return $this->onFail($e);
     }
   }
 
+	/**
+	 * Modify a User's data (password/username change)
+	 */
   public function modify($data){
     try{
       $this->onModify($data);
@@ -95,6 +130,8 @@ abstract class User implements Inloggable {
   abstract protected function onTerminate();
   abstract protected function onSubscribe();
   abstract protected function onModify($data);
+
+	abstract protected function salt($data);
 }
 
 abstract class UserCallback {
