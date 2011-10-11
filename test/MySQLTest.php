@@ -4,14 +4,26 @@ require_once(FRAME_PATH.db.MySQL);
 
 class MySQLTest extends PHPUnit_Framework_TestCase {
 	private $db;
+
 	public function setUp(){
 		$this->db = new frame\MySQLDatabase(SQL_DEFAULT_PATH);
 	}
 	
+	/**
+	 * @expectedException frame\SQLUserException
+	 * @expectedExceptionMessage no blank usernames
+	 */
+	public function testValidateBlankUser(){
+		// User doesn't add defaults
+		// MySQLUser does add its defaults
+		$user = new frame\MySQLUser("", "");
+		$user->setUsername("");
+		$user->validate();
+	}
+
 	// 
 	public function testValidUser(){
-		$user = new frame\MySQLUser();
-		var_dump($user);
+		$user = new frame\MySQLUser("crap", "weak");
 		$this->db->setUser($user);
 	}
 
@@ -24,23 +36,10 @@ class MySQLTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals($strPassword, $user->getPassphrase());
 	}
 
-	/**
-	 * @expectedException UserException
-	 * @expectedExceptionMesage cannot validate the nonexisting
-	 */
-	public function testValidateBlankUser(){
-		$user = new frame\MySQLUser("", "");
-		$user->validate();
-	}
-
-	public function testBlankNameUser(){
-		$user = new frame\MySQLUser();
-	}
-
 	// following test require or initiate db connection
 	/**
-	 * @expectedException UserException
-	 * @expectedExceptionMessage invalid user
+	 * @expectedException frame\UserException
+	 * @expectedExceptionMessage invalid user object
 	 */
 	public function testInvalidDBUser(){
 		$this->db->setUser("hi");
@@ -51,9 +50,7 @@ class MySQLTest extends PHPUnit_Framework_TestCase {
 	 * @expectedException EmptyElementExeption
 	 * @expectedExceptionMessage futile to add NULL element
 	 */
-	public function testAddingNullElement(){
-		$this->object->addElement();
-	}
-
+//	public function testAddingNullElement(){
+//	}
 }
 ?>

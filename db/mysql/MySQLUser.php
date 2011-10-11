@@ -18,23 +18,21 @@ namespace frame;
 
 require_once(FRAME_PATH.User);
 
-// TODO: find out where to best place such information, should be customizable
+define('SQL_DEFAULT_USER', 'admin');
+define('SQL_DEFAULT_PASS', 'chickenwing');
 
 class MySQLUser extends User {
   
-  public function __construct(){
-    $this->setUserCredentials(SQL_DEFAULT_USER, SQL_DEFAULT_PASS);
+	/**
+	 * Constructs a default User object and adds the 
+	 * MySQLUser default values to a blank User
+	 */
+  public function __construct($user, $password){
+		$u = (!empty($user)) ? $user : SQL_DEFAULT_USER;
+		$p = (!empty($password)) ? $password: SQL_DEFAULT_PASS;
+		
+		parent::__construct($u, $p);
   }
-
-	// setters are forced required by extension
-
-	// getters to accompany the setters
-	public function getUsername(){
-		return $this->username;
-	}
-	public function getPassphrase(){
-		return $this->passphrase;
-	}
 
 	// callbacks for the common Inloggable methods
   protected function onValidate(){
@@ -57,6 +55,12 @@ class MySQLUser extends User {
   protected function onModify($data){
 		// TODO: add code
   }
+	
+	protected function onChange(){
+		if($this->getUsername() == ""){
+			throw new SQLUserException("no blank usernames");
+		}
+	}
 }
 
 class SQLUserException extends UserException{}

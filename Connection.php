@@ -107,16 +107,14 @@ abstract class Connection implements Connectable, Inloggable {
 
   public function setUser($user){
 		if(is_a($user, 'frame\User') && $user != null){
-				var_dump("orgeona");
 			// do not set blank usernames
-			if($user->getUsername == ""){
+			if($user->getUsername() == ""){
 				throw new UserException("blank username");
 			} else {
 		    $this->user = $user;
 			}
 		}else{
-			var_dump("invalid");
-			throw new UserException("invalid user");
+			throw new UserException("invalid user object");
 		}
   }
 	

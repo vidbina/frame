@@ -73,7 +73,7 @@ abstract class User implements Inloggable {
 	 */
   public function validate(){
     if(empty($this->username)){
-      throw new UserException('cannot validate the nonexisting');
+      throw new UserException("cannot validate the nonexisting");
       return false;
     }
 

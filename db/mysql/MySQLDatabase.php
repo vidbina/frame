@@ -17,12 +17,9 @@
 namespace frame;
 
 require_once(FRAME_PATH.db.Database);
+require_once(FRAME_PATH.db.mysql.MySQLUser);
 
-// TODO: find out where best to place such information, should be customizable
-// TODO: refactor Connection to implement User object
 define('SQL_DEFAULT_PATH', 'localhost');
-define('SQL_DEFAULT_USER', 'admin');
-define('SQL_DEFAULT_PASS', 'chickenwing');
 
 class MySQLDatabase extends Database {
   private $link;
@@ -34,13 +31,14 @@ class MySQLDatabase extends Database {
     }
     // write values to object
     $this->setTarget($path);
-    $this->setUsername(SQL_DEFAULT_USER);
-    $this->setPassphrase(SQL_DEFAULT_PASS);
+    $this->setUser(new MySQLUser("", ""));
   }
 
   protected function onConnect(){
-    $this->link = mysql_connect($target, $user, $passphrase);
-    if(!link){
+    $this->link = mysql_connect($this->target, 
+			$this->user->getUsername(), 
+			$this->user->getPassphrase());
+    if(!$this->link){
       return(false);
     }
     return(true);
@@ -55,23 +53,27 @@ class MySQLDatabase extends Database {
   }
   
   protected function onPing(){
-    echo("\nping");
+		// TODO: add code
   }
   
   protected function onWake(){
-    echo("\nwake");
+		// TODO: add code
   }
 
+	// querries the database
   public function query($string){
-    if(!link){ return false; }
-    echo($string);
+    if(!link){ 
+			return false; 
+		}
     return(mysql_query($string));
   }
 
+	// implementation of Inloggable methods
   public function validate(){
-    echo("\nvalidate");
+		$this->user->validate();
   }
 
+	// terminate the connection
   public function terminate(){
     echo("\nterminate");
   }
@@ -80,6 +82,7 @@ class MySQLDatabase extends Database {
     echo("\nsubscribe");
   }
 
+	// implementation of Database methods
   public function onQuery($string){
     echo("\nquery");
   }
