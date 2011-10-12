@@ -23,6 +23,7 @@ interface Connectable {
 
   /**
    * connects to the resource
+	 * @returns boolean
    */
   public function connect();
   /**

@@ -32,9 +32,11 @@ class MySQLDatabase extends Database {
     // write values to object
     $this->setTarget($path);
     $this->setUser(new MySQLUser("", ""));
+		// TODO: set default to UNKNOWN or DISCONNECTED?
+		$this->setState(Connectable::UNKNOWN);
   }
 
-  protected function onConnect(){
+ protected function onConnect(){
     $this->link = mysql_connect($this->target, 
 			$this->user->getUsername(), 
 			$this->user->getPassphrase());

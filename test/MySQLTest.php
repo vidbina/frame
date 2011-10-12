@@ -1,6 +1,7 @@
 <?php
 require_once("config.php");
 require_once(FRAME_PATH.db.MySQL);
+require_once(FRAME_PATH.ables.Connectable);
 
 class MySQLTest extends PHPUnit_Framework_TestCase {
 	private $db;
@@ -21,7 +22,6 @@ class MySQLTest extends PHPUnit_Framework_TestCase {
 		$user->validate();
 	}
 
-	// 
 	public function testValidUser(){
 		$user = new frame\MySQLUser("crap", "weak");
 		$this->db->setUser($user);
@@ -50,7 +50,26 @@ class MySQLTest extends PHPUnit_Framework_TestCase {
 	 * @expectedException EmptyElementExeption
 	 * @expectedExceptionMessage futile to add NULL element
 	 */
-//	public function testAddingNullElement(){
-//	}
+	public function testAddingNullElement(){
+	}
+
+	public function testDefaultDBConnectionState(){
+		$user = frame\MySQLUser(TESTUSER, TESTPASS);
+		var_dump($this->db->ping());
+	}
+/**
+	 * @expectedException frame\ConnectionException
+	 * @expectedExceptionMessage cannot connect to database
+	 */
+	public function testImpossibleConnectToDB(){
+		$user = frame\MySQLUser(TESTUSER, TESTPASS);
+		$this->db->setUser($user);
+		$this->db->connect();
+		//$this->assertEquals(Connectable::UNKNOWN
+	}
+
+	public function testSuccessfulConnectToDB(){
+		$user = frame\MySQLUser("admin", "test");
+	}
 }
 ?>

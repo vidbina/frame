@@ -47,42 +47,54 @@ abstract class Connection implements Connectable, Inloggable {
 
   /**
    * this method pretty damn obvious, I suppose
+	 * @returns Connectable Constant (0-2)
    */
   public function connect(){
     // execute the connect routine
     try{
-      $this->onConnect();
+      if($this->onConnect()){
+				$this->state == Connectable::CONNECTED;
+			}else{
+				$this->state == Connectable::UNKNOWN;
+			}
     }catch(Exception $e){
-      throw new ConnectionException();
+			$this->state == Connectable::UNKNOWN;
+      throw new ConnectionException($e->getMessage());
     }
     // invoke the callback if implemented
     if(method_exists($this, "onConnected")){
       $this->onConnected();
     }
+		return $this->state;
   }
 
   /**
    * another one that speaks for itself
+	 * @returns Connectable Constant (0-2)
    */
   public function disconnect(){
     // execute the disconnect routine
     try{
-      $this->onDisconnect();
+      if($this->onDisconnect()){
+				$this->state == Connectable::DISCONNECTED;
+			}else{
+				$this->state == Connectable::UNKNOWN;
+			}
     }catch(Exception $e){
-      throw new ConnectionException();
+      throw new ConnectionException($e->getMessage());
     }
     // invoke the callback if implemented
     if(method_exists($this, "onDisconnected")){
       $this->onDisconnected();
     }
+		return $this->state;
   }
 
   /**
    * checks whether a valid connection is known to the object
    */
   public function ping(){
-    onPing();
-    // TODO: check for connection before executing ping
+    $this->onPing();
 		return ($state == Connectable::CONNECTED) ? true : false;
   }
 
@@ -90,9 +102,9 @@ abstract class Connection implements Connectable, Inloggable {
    * reanimate the connection if dead, needs some serious thought
    */
   public function wake(){
-    onWake();
-    if($state = Connectable::UNKNOWN){
-      this.connect();
+    $this->onWake();
+    if($this->state != Connectable::CONNECTED){
+      $this->connect();
     }
 		// TODO: what is PostWake?
     //onPostWake();
@@ -104,6 +116,10 @@ abstract class Connection implements Connectable, Inloggable {
   public function setTarget($target){
     $this->target = $target;
   }
+
+	public function getTarget(){
+		return $this->target;
+	}
 
   public function setUser($user){
 		if(is_a($user, 'frame\User') && $user != null){
@@ -117,6 +133,10 @@ abstract class Connection implements Connectable, Inloggable {
 			throw new UserException("invalid user object");
 		}
   }
+
+	public function getUser(){
+		return $this->user;
+	}
 	
 	public function setUsername($string){
 		//$this->user->setUsername($string);
@@ -129,6 +149,14 @@ abstract class Connection implements Connectable, Inloggable {
 
 	public function setUserCredentials($user, $pass){
 		$this->user->setUserCredentials($user, $pass);
+	}
+
+	public function setState($state){
+		$this->state = $state;
+	}
+
+	public function getState(){
+		return $this->state;
 	}
 }
 
